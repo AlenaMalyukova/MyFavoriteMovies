@@ -45,9 +45,8 @@ const movies = computed(() => store.state.movies.list)
 
 const watchedMovies = computed(() => store.getters.watchedMovies)
 
-const setTab = (id) => {
-  store.commit('setActiveTab', id)
-}
+const setTab = (id) => { store.commit('setActiveTab', id) }
+
 </script>
 
 <style>

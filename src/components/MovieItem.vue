@@ -13,10 +13,10 @@
       <span class="movie__overview"> {{ movie.overview }}</span>
       <div class="movie-buttons">
         <button class="btn movie-buttons__watched">
-          <span v-if="!movie.isWatched">Watched</span>
-          <span v-else>Unwatched</span>
+          <span v-if="!movie.isWatched" @click="toggleWatched(movie.id)">Watched</span>
+          <span v-else @click="toggleWatched(movie.id)">Unwatched</span>
         </button>
-        <button class="btn movie-buttons__delete">Delete</button>
+        <button class="btn movie-buttons__delete" @click="deleteMovie(movie.id)">Delete</button>
     </div>
     </div>
   </div>
@@ -25,6 +25,7 @@
 <script setup>
 import { ref } from 'vue'
 import { computed } from '@vue/runtime-core'
+import store from '@/store';
 
 // eslint-disable-next-line
 const props = defineProps({
@@ -35,11 +36,14 @@ const props = defineProps({
   }
 })
 
-const movie = computed(() => {
-  return props.movie
-})
+const movie = computed(() => props.movie)
 
 const baseImgUrl = ref('http://image.tmdb.org/t/p/w300_and_h450_bestv2')
+
+const toggleWatched = (id) => { store.commit('toggleWatched', id) }
+
+const deleteMovie = (id) => { store.commit('deleteMovie', id)}
+
 </script>
 
 <style scoped>

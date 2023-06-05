@@ -17,7 +17,7 @@ const movies = {
           "In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.",
         poster_path: "/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg",
         release_date: "2022-03-01",
-        isWatched: true,
+        isWatched: false,
       },
     ],
     activeTab: 1
@@ -33,6 +33,13 @@ const movies = {
   mutations: {
     setActiveTab(state, id) {
       state.activeTab = id
+    },
+    toggleWatched(state, id) {
+      const index = state.list.findIndex(el => el.id === id)
+      state.list[index].isWatched = !state.list[index].isWatched
+    },
+    deleteMovie(state, id) {
+      state.list = state.list.filter(el => el.id !==id)
     }
   }
 }
