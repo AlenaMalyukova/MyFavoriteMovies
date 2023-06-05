@@ -4,19 +4,27 @@
     <h1>My Favorite Movies</h1>
   </header>
   <div class="tabs">
-    <button :class="['btn', {btn_active: activeTab === 1}]">Favorite</button>
-    <button :class="['btn', {btn_active: activeTab === 2}]">Search</button>
+    <button 
+      :class="['btn', {btn_active: activeTab === 1}]" 
+      @click="setTab(1)"
+    >Favorite</button>
+    <button 
+      :class="['btn', {btn_active: activeTab === 2}]" 
+      @click="setTab(2)"
+    >Search</button>
   </div>
   <div class="movies" v-if="activeTab === 1">
     <div>
-      <h2>Watched Movies</h2>
+      <h2 style="display: inline-block; margin-right: 10px;">Watched Movies</h2>
+      <h4 style="display: inline-block;">(Count: {{ watchedMovies.length }})</h4>
       <MovieItem 
         v-for="movie in watchedMovies" 
         :key="movie.id"
         :movie="movie"
       />
     </div>
-    <h2>All Movies</h2>
+    <h2 style="display: inline-block; margin-right: 10px;">All Movies</h2>
+    <h4 style="display: inline-block;">(Count: {{ movies.length }})</h4>
     <MovieItem 
       v-for="movie in movies" 
       :key="movie.id"
@@ -31,17 +39,15 @@ import { computed } from '@vue/runtime-core'
 import store from './store'
 import MovieItem from './components/MovieItem'
 
-const activeTab = computed(() => {
-  return store.state.movies.activeTab
-})
+const activeTab = computed(() => store.state.movies.activeTab)
 
-const movies = computed(() => {
-  return store.state.movies.list
-})
+const movies = computed(() => store.state.movies.list)
 
-const watchedMovies = computed(() => {
-  return store.getters.watchedMovies
-})
+const watchedMovies = computed(() => store.getters.watchedMovies)
+
+const setTab = (id) => {
+  store.commit('setActiveTab', id)
+}
 </script>
 
 <style>

@@ -25,6 +25,14 @@ const movies = {
   getters: {
     watchedMovies(state) {
       return state.list.filter((el) => el.isWatched)
+    },
+    totalCountMovies(state) {
+      return state.movies.length
+    }
+  }, 
+  mutations: {
+    setActiveTab(state, id) {
+      state.activeTab = id
     }
   }
 }
