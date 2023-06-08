@@ -31,13 +31,16 @@
       :movie="movie"
     />
   </div>
-  <div class="search" v-else>Search</div>
+  <div style="width: 600px" v-else>
+    <Search />
+  </div>
 </template>
 
 <script setup>
 import { computed } from '@vue/runtime-core'
 import store from './store'
 import MovieItem from './components/MovieItem'
+import Search from './components/Search';
 
 const activeTab = computed(() => store.state.movies.activeTab)
 
