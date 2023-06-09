@@ -7,14 +7,20 @@
       v-model="searchMovie">
   </form>
   <Loader v-if="store.state.search.loader"/>
+  <div v-else>
+    <MovieItem v-for="movie of movies" :key="movie.id" :movie="movie" :is-search="true"/>
+  </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import MovieItem from './MovieItem.vue';
+import { computed, ref } from 'vue'
 import store from '@/store';
 import Loader from './Loader.vue';
 
 const search = (search) => { store.dispatch('getMovies', search)}
+
+const movies = computed(() => store.state.search.movies)
 
 const searchMovie = ref('')
 </script>

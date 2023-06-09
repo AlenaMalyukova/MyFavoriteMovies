@@ -11,13 +11,20 @@
         {{ movie.original_title }}  ({{ movie.release_date }})
       </div>
       <span class="movie__overview"> {{ movie.overview }}</span>
-      <div class="movie-buttons">
-        <button class="btn movie-buttons__watched">
-          <span v-if="!movie.isWatched" @click="toggleWatched(movie.id)">Watched</span>
-          <span v-else @click="toggleWatched(movie.id)">Unwatched</span>
+      <div class="movie-buttons" v-if="!isSearch">
+        <button
+          class="btn movie-buttons__watched"
+          @click="toggleWatched(movie.id)"
+        >
+          <span v-if="!movie.isWatched">Watched</span>
+          <span v-else>Unwatched</span>
         </button>
         <button class="btn movie-buttons__delete" @click="deleteMovie(movie.id)">Delete</button>
-    </div>
+      </div>
+      <div class="movie-buttons" v-else>
+        <button class="btn btn_active" @click="addToFavorite(movie)"> Add
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -33,6 +40,12 @@ const props = defineProps({
     type: Object,
     required: true,
     default: () => {}
+  },
+  isSearch: {
+    type: Boolean,
+    required: false,
+    default: false
+
   }
 })
 
@@ -43,6 +56,8 @@ const baseImgUrl = ref('http://image.tmdb.org/t/p/w300_and_h450_bestv2')
 const toggleWatched = (id) => { store.commit('toggleWatched', id) }
 
 const deleteMovie = (id) => { store.commit('deleteMovie', id)}
+
+const addToFavorite = (movie) => { store.commit('addToList', movie) }
 
 </script>
 
